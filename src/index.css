@@ -107,6 +107,12 @@ main h2 {
   color: #ebe7ef;
 }
 
+#content{
+  padding: 1rem;
+  background-color:aqua;
+  box-shadow: 0 2px 8px rgba(219, 19, 19, 0.3)
+}
+
 #tab-content {
   padding: 1rem;
   border-radius: 6px;

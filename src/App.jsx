@@ -1,5 +1,5 @@
 
-import {useState} from 'react';
+import {useState, Fragment} from 'react';
 import componentsImg from './assets/components.png';
 import configImg from './assets/config.png';
 import { CORE_CONCEPTS } from './data.js';
@@ -26,7 +26,7 @@ function App() {
   let tabContent = (<p>Please select a topic</p>);
 
   if(selectedTopic){
-    tabContent = 
+    tabContent =  
     <div id="tab-content">
            
            <h3>{EXAMPLES[selectedTopic].title}</h3>
@@ -42,7 +42,7 @@ function App() {
 
 
   return (
-    <div>
+    <Fragment>
       <Header />
       <main>
         <section id="core-concepts">
@@ -52,7 +52,7 @@ function App() {
            {CORE_CONCEPTS.map((conceptItems) => <CoreConcepts {...conceptItems} />)}
           </ul>
         </section>
-
+ 
         <section id="examples">
           <h2>Examples</h2>
           <menu>
@@ -71,7 +71,7 @@ function App() {
 
 
       </main>
-    </div>
+    </Fragment>
   );
 }
 
