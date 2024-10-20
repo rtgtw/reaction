@@ -6,7 +6,7 @@ import { CORE_CONCEPTS } from './data.js';
 import Header from './components/Header/Header.jsx';
 import CoreConcepts from './components/CoreConcepts.jsx';
 import TabButton from './components/TabButton.jsx';
-
+import { EXAMPLES } from './data.js';
 
 
 
@@ -15,12 +15,29 @@ import TabButton from './components/TabButton.jsx';
 
 function App() {
 
-  const [selectedTopic, setSelectedTopic] = useState('Please click a button');
+  const [selectedTopic, setSelectedTopic] = useState(null);
 
 
 
   function handleSelect(selectedButton) {
       setSelectedTopic(selectedButton);
+  }
+
+  let tabContent = (<p>Please select a topic</p>);
+
+  if(selectedTopic){
+    tabContent = 
+    <div id="tab-content">
+           
+           <h3>{EXAMPLES[selectedTopic].title}</h3>
+           <p>{EXAMPLES[selectedTopic].description}</p>
+           <pre>
+             <code>
+             {EXAMPLES[selectedTopic].code }
+             </code>
+           </pre>
+
+         </div>
   }
 
 
@@ -32,39 +49,21 @@ function App() {
           <h2>Core Concepts</h2>
 
           <ul>
-            <CoreConcepts
-              title="Components"
-              description="The Core UI Building block"
-              image={componentsImg}
-            />
-
-            {/* ... the spread operator pulls out each element within an array or object */}
-            <CoreConcepts {...CORE_CONCEPTS[2]} />
-
-            <CoreConcepts
-              title={CORE_CONCEPTS[1].title}
-              description={CORE_CONCEPTS[1].description}
-              image={CORE_CONCEPTS[1].image}
-            />
-
-            <CoreConcepts
-              title={CORE_CONCEPTS[3].title}
-              description={CORE_CONCEPTS[3].description}
-              image={CORE_CONCEPTS[3].image}
-            />
+           {CORE_CONCEPTS.map((conceptItems) => <CoreConcepts {...conceptItems} />)}
           </ul>
         </section>
 
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            <TabButton onSelect={() => handleSelect('Components')}>Components</TabButton>
-            <TabButton onSelect={() => handleSelect('Props')}>Props</TabButton>
-            <TabButton onSelect={() => handleSelect('JSX')}>JSX</TabButton>
-            <TabButton onSelect={() => handleSelect('State')}>State</TabButton>
+            <TabButton isSelected={selectedTopic === 'components'} onSelect={() => handleSelect('components')}>Components</TabButton>
+            <TabButton isSelected={selectedTopic === 'props'} onSelect={() => handleSelect('props')}>Props</TabButton>
+            <TabButton  isSelected={selectedTopic === 'jsx'} onSelect={() => handleSelect('jsx')}>JSX</TabButton>
+            <TabButton isSelected={selectedTopic === 'state'} onSelect={() => handleSelect('state')}>State</TabButton>
           </menu>
 
-          {selectedTopic}
+          {tabContent}
+          
       
 
 
